@@ -1,32 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 type SearchPropsType = {
-    value: string,
+    initialValue: string,
     onSubmitHandler: (fixedValue: string) => void
 }
 
-const Search = ({ value, onSubmitHandler }: SearchPropsType) => {
-    const [ tempSearch, setTempSearch ] = useState<string>('');
+type Inputs = {
+    userName: string;
+};
 
-    useEffect(() => {
-        setTempSearch(value);
-    }, [ value ]);
+const Search = ({ initialValue, onSubmitHandler }: SearchPropsType) => {
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
-    // TODO change to using react-hook-form
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        onSubmitHandler(data.userName);
+    };
+
     return (
-        <div>
-            <input
-                value={tempSearch}
-                placeholder={'search'}
-                onChange={(e) => setTempSearch(e.currentTarget.value)}/>
-            <button
-                type={'button'}
-                onClick={() => {
-                    onSubmitHandler(tempSearch);
-                }}>
-                Find
-            </button>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+                <input
+                    {
+                        ...register(
+                            'userName',
+                            {
+                                required: true,
+                                minLength: 1
+                            })
+                    }
+                    defaultValue={initialValue}
+                />
+                <button type={'submit'}>Find</button>
+            </div>
+            {errors.userName && <p>This field is required</p>}
+        </form>
     );
 };
 

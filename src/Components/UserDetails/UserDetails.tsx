@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Timer from 'src/Components/Timer/Timer';
-
-
-type SearchUserType = {
-    id: number,
-    login: string
-}
+import { SearchUserType } from 'src/Components/Github/Github';
 
 type UserType = {
     id: number,

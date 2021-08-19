@@ -7,8 +7,9 @@ Used:
  * Typescript
  * Dart-sass
  * Bootstrap (TODO)
- * React-hook-forms (TODO)
+ * [React-hook-forms](https://github.com/react-hook-form/react-hook-form)
  * react-modal (TODO)
+ * add loaders (TODO)
  * Tests maybe will not be added (TODO)
  
 

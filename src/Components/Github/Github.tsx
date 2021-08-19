@@ -4,7 +4,7 @@ import Search from 'src/Components/Search/Search';
 import UsersList from 'src/Components/UsersList/UsersList';
 import UserDetails from 'src/Components/UserDetails/UserDetails';
 
-type SearchUserType = {
+export type SearchUserType = {
     id: number,
     login: string
 }
@@ -13,7 +13,8 @@ const INITIAL_SEARCH = 'vgratsilev';
 
 const Github = () => {
     const [ selectedUser, setSelectedUser ] = useState<SearchUserType | null>(null);
-    const [ searchName, setSearchName ] = useState<string>('vgratsilev');
+    const [ searchName, setSearchName ] = useState<string>(INITIAL_SEARCH);
+
 
     useEffect(() => {
         if(selectedUser) {
@@ -24,7 +25,7 @@ const Github = () => {
     return (
         <div className={'container'}>
             <div>
-                <Search value={INITIAL_SEARCH} onSubmitHandler={setSearchName}/>
+                <Search initialValue={INITIAL_SEARCH} onSubmitHandler={setSearchName}/>
                 <button
                     type={'button'}
                     onClick={() => setSearchName(INITIAL_SEARCH)}

@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+
+    div {
+        padding: 10px;
+    }
+}
+
+.userItem {
+    cursor: pointer;
+}
+
+.selected {
+    background-color: aquamarine;
+}

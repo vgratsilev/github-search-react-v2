@@ -28,6 +28,7 @@ const Github = () => {
                 <Search initialValue={INITIAL_SEARCH} onSubmitHandler={setSearchName}/>
                 <button
                     type={'button'}
+                    className={'btn btn-secondary resetButton'}
                     onClick={() => setSearchName(INITIAL_SEARCH)}
                 >
                     Reset

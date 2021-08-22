@@ -3,16 +3,16 @@
 Github API search.\
 UseEffect Flux sandbox.
 
-Used:
- * Typescript
- * Dart-sass
- * Bootstrap (TODO)
- * [React-hook-forms](https://github.com/react-hook-form/react-hook-form)
- * react-modal (TODO)
- * add loaders (TODO)
- * Tests maybe will not be added (TODO)
- 
+User Details closed after the timer countdown.
 
+Used:
+ * React & [TypeScript](https://github.com/microsoft/TypeScript).
+ * Styles with [Dart-Sass](https://github.com/sass/dart-sass) and [Bootstrap](https://github.com/twbs/bootstrap).
+ * Form validation with [React-hook-forms](https://github.com/react-hook-form/react-hook-form).
+ * react-modal (TODO).
+ * add loaders (TODO).
+ * Tests maybe will not be added (TODO).
+ 
 
 ## Available Scripts
 

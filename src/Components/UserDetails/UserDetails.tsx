@@ -6,15 +6,21 @@ import { SearchUserType } from 'src/Components/Github/Github';
 type UserType = {
     id: number,
     login: string,
+    name?: string,
     avatar_url: string,
-    followers: number
+    followers: number,
+    following: number,
+    public_repos: number,
+    public_gists: number,
+    html_url: string,
+    blog?: string
 }
 
 type UserDetailsPropType = {
     selectedUser: SearchUserType | null
 }
 
-const INITIAL_TIMER_SECONDS = 10;
+const INITIAL_TIMER_SECONDS = 60;
 
 const UserDetails = ({ selectedUser }: UserDetailsPropType) => {
     const [ userDetails, setUserDetails ] = useState<UserType | null>(null);
@@ -29,7 +35,6 @@ const UserDetails = ({ selectedUser }: UserDetailsPropType) => {
 
                     });
             }
-
         }, [ selectedUser ]
     );
 
@@ -41,14 +46,48 @@ const UserDetails = ({ selectedUser }: UserDetailsPropType) => {
 
     return (
         <>
-            {userDetails && (<div>
-                <Timer timerSeconds={timerSeconds} onTimerTick={setTimerSeconds} timerKey={selectedUser?.id}/>
-                <h2>Details: {userDetails.login}</h2>
-                <img src={userDetails.avatar_url} height={'200px'} width={'200px'} alt={'avatar'}/>
-                <br/>
-                <span>Followers: {userDetails.followers}</span>
-
-            </div>)}
+            {userDetails && (
+                <div className={'card userDetailsContainer'}>
+                    <Timer timerSeconds={timerSeconds} onTimerTick={setTimerSeconds} timerKey={selectedUser?.id}/>
+                    <h2>{userDetails.login}</h2>
+                    <h3>{userDetails.name}</h3>
+                    <hr/>
+                    <img src={userDetails.avatar_url} height={'250px'} width={'250px'} alt={'avatar'}/>
+                    {userDetails.html_url && (
+                        <>
+                            <hr/>
+                            <a
+                                href={userDetails.html_url}
+                                target={'_blank'}
+                                rel={'noreferrer'}
+                                className={'btn btn-dark'}
+                            >
+                                Open Profile
+                            </a>
+                        </>
+                    )}
+                    <hr/>
+                    <div className={'infoContainer'}>
+                        {userDetails.blog && (
+                            <span>
+                                <strong>Website: </strong>
+                                <a
+                                    href={userDetails.blog}
+                                    target={'_blank'}
+                                    rel={'noreferrer'}
+                                    className={'card-link'}
+                                >
+                                    {userDetails.blog}
+                                </a>
+                            </span>
+                        )}
+                        <div className={'badge bg-success mt-1'}>Followers: {userDetails.followers}</div>
+                        <div className={'badge bg-success mt-1'}>Following: {userDetails.following}</div>
+                        <div className={'badge bg-success mt-1'}>Public repos: {userDetails.public_repos}</div>
+                        <div className={'badge bg-success mt-1'}>Public gists: {userDetails.public_gists}</div>
+                    </div>
+                </div>
+            )}
         </>
     );
 };

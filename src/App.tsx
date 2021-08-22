@@ -4,7 +4,7 @@ import Github from './Components/Github/Github';
 
 function App() {
     return (
-        <div className="App">
+        <div className={'App'}>
             <Github/>
         </div>
     );

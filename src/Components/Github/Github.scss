@@ -4,12 +4,59 @@
     div {
         padding: 10px;
     }
+
+    .resetButton {
+        width: 100px;
+    }
+
+    .searchContainer {
+        .searchRow {
+            .searchBox {
+                width: 40vw;
+                max-width: 600px;
+            }
+
+            .searchButton {
+                width: 100px;
+            }
+        }
+
+        .errorMessage {
+            color: red;
+        }
+    }
+
+    .usersListContainer {
+        max-width: 600px;
+
+        .userItem {
+            cursor: pointer;
+        }
+
+        .selected {
+            background-color: aquamarine;
+        }
+    }
+
+    .userDetailsContainer {
+        min-width: 300px;
+        width: 20vw;
+        max-width: 25vw;
+        align-items: center;
+
+        .infoContainer {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        hr {
+            width: 100%;
+        }
+    }
 }
 
-.userItem {
-    cursor: pointer;
-}
 
-.selected {
-    background-color: aquamarine;
-}
+
+

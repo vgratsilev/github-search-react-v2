@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
 
@@ -31,12 +31,17 @@ const UsersList = ({ searchName, selectedUser, onUserSelectHandler }: UsersListP
         }, [ searchName ]
     );
 
+    if(users.length === 0) {
+        return null;
+    }
+
     return (
-        <div>
-            <ul>
+        <div className={'card my-3 usersListContainer'}>
+            <label className={'form-label fs-5'}>Find users:</label>
+            <ul className={'list-group'}>
                 {users.map((user) =>
                     <li key={user.id}
-                        className={classNames('userItem', { 'selected': selectedUser === user })}
+                        className={classNames('list-group-item', 'list-group-item-action', 'userItem', { 'selected': selectedUser === user })}
                         onClick={() => {
                             onUserSelectHandler(user);
                         }}>

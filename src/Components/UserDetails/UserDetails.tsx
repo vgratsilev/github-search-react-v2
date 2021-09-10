@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Timer from 'src/Components/Timer/Timer';
 import { SearchUserType } from 'src/Components/Github/Github';
+import Loader from 'src/Components/UI/Loader/Loader';
 
 type UserType = {
     id: number,
@@ -17,25 +18,36 @@ type UserType = {
 }
 
 type UserDetailsPropType = {
-    selectedUser: SearchUserType | null
+    selectedUser: SearchUserType | null,
+    onErrorHandler: () => void
 }
 
 const INITIAL_TIMER_SECONDS = 60;
 
-const UserDetails = ({ selectedUser }: UserDetailsPropType) => {
+const UserDetails = ({ selectedUser, onErrorHandler }: UserDetailsPropType) => {
     const [ userDetails, setUserDetails ] = useState<UserType | null>(null);
     const [ timerSeconds, setTimerSeconds ] = useState<number>(INITIAL_TIMER_SECONDS);
+    const [ showLoader, setShowLoader ] = useState<boolean>(false);
 
     useEffect(() => {
+            async function toggleLoader(value: boolean) {
+                setShowLoader(value);
+            }
+
             if(!!selectedUser) {
-                axios.get<UserType>(`https://api.github.com/users/${selectedUser.login}`)
+                toggleLoader(true)
+                    .then(() => axios.get<UserType>(`https://api.github.com/users/${selectedUser.login}`))
                     .then((response) => {
                         setTimerSeconds(INITIAL_TIMER_SECONDS);
                         setUserDetails(response.data);
 
-                    });
+                    })
+                    .catch(() => onErrorHandler())
+                    .finally(() => toggleLoader(false));
             }
-        }, [ selectedUser ]
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [ selectedUser ]
     );
 
     useEffect(() => {
@@ -46,7 +58,12 @@ const UserDetails = ({ selectedUser }: UserDetailsPropType) => {
 
     return (
         <>
-            {userDetails && (
+            {showLoader && (
+                <div className={'loaderContainer'}>
+                    <Loader/>
+                </div>
+            )}
+            {!showLoader && userDetails && (
                 <div className={'card userDetailsContainer'}>
                     <Timer timerSeconds={timerSeconds} onTimerTick={setTimerSeconds} timerKey={selectedUser?.id}/>
                     <h2>{userDetails.login}</h2>
@@ -70,16 +87,16 @@ const UserDetails = ({ selectedUser }: UserDetailsPropType) => {
                     <div className={'infoContainer'}>
                         {userDetails.blog && (
                             <span>
-                                <strong>Website: </strong>
-                                <a
-                                    href={userDetails.blog}
-                                    target={'_blank'}
-                                    rel={'noreferrer'}
-                                    className={'card-link'}
-                                >
-                                    {userDetails.blog}
-                                </a>
-                            </span>
+                                    <strong>Website: </strong>
+                                    <a
+                                        href={userDetails.blog}
+                                        target={'_blank'}
+                                        rel={'noreferrer'}
+                                        className={'card-link'}
+                                    >
+                                        {userDetails.blog}
+                                    </a>
+                                </span>
                         )}
                         <div className={'badge bg-success mt-1'}>Followers: {userDetails.followers}</div>
                         <div className={'badge bg-success mt-1'}>Following: {userDetails.following}</div>

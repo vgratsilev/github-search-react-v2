@@ -9,10 +9,11 @@ Used:
  * React & [TypeScript](https://github.com/microsoft/TypeScript).
  * Styles with [Dart-Sass](https://github.com/sass/dart-sass) and [Bootstrap](https://github.com/twbs/bootstrap).
  * Form validation with [React-hook-forms](https://github.com/react-hook-form/react-hook-form).
+ * Loader from [Loading.io](https://loading.io/css).
  * react-modal (TODO).
- * add loaders (TODO).
  * Tests maybe will not be added (TODO).
- 
+ * Add Travis building (TODO).
+ * Add Github Pages (TODO).
 
 ## Available Scripts
 

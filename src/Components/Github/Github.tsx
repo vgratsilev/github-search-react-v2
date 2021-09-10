@@ -14,6 +14,7 @@ const INITIAL_SEARCH = 'vgratsilev';
 const Github = () => {
     const [ selectedUser, setSelectedUser ] = useState<SearchUserType | null>(null);
     const [ searchName, setSearchName ] = useState<string>(INITIAL_SEARCH);
+    const [ showAlert, setShowAlert ] = useState<boolean>(false);
 
 
     useEffect(() => {
@@ -22,28 +23,48 @@ const Github = () => {
         }
     }, [ selectedUser ]);
 
+    useEffect(() => {
+        if(showAlert) {
+            setTimeout(() => {
+                setSelectedUser(null);
+                setShowAlert(false);
+            }, 3000);
+        }
+    }, [ showAlert ]);
+
+    const showErrorAlert = () => setShowAlert(true);
+
     return (
-        <div className={'container'}>
-            <div>
-                <Search initialValue={INITIAL_SEARCH} onSubmitHandler={setSearchName}/>
-                <button
-                    type={'button'}
-                    className={'btn btn-secondary resetButton'}
-                    onClick={() => setSearchName(INITIAL_SEARCH)}
-                >
-                    Reset
-                </button>
+        <>
+            <div className={'container'}>
+                <div>
+                    <Search initialValue={INITIAL_SEARCH} onSubmitHandler={setSearchName}/>
+                    <button
+                        type={'button'}
+                        className={'btn btn-secondary resetButton'}
+                        onClick={() => setSearchName(INITIAL_SEARCH)}
+                    >
+                        Reset
+                    </button>
 
-                <UsersList
-                    searchName={searchName}
-                    selectedUser={selectedUser}
-                    onUserSelectHandler={setSelectedUser}/>
+                    <UsersList
+                        searchName={searchName}
+                        selectedUser={selectedUser}
+                        onUserSelectHandler={setSelectedUser}
+                        onErrorHandler={showErrorAlert}
+                    />
 
+                </div>
+                <div>
+                    <UserDetails selectedUser={selectedUser} onErrorHandler={showErrorAlert}/>
+                </div>
             </div>
-            <div>
-                <UserDetails selectedUser={selectedUser}/>
-            </div>
-        </div>
+            {showAlert && (
+                <div className={'alert alert-danger'} role={'alert'}>
+                    Error fetching data
+                </div>
+            )}
+        </>
     );
 };
 

@@ -1,7 +1,7 @@
 .container {
     display: flex;
 
-    div {
+    div:not(.ldsSpinner div) {
         padding: 10px;
     }
 
@@ -34,8 +34,12 @@
         }
 
         .selected {
-            background-color: aquamarine;
+            background-color: #F7EADC;
         }
+    }
+
+    .loaderContainer {
+        margin-top: 5rem;
     }
 
     .userDetailsContainer {

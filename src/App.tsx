@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import 'src/App.scss';
 import Github from './Components/Github/Github';
 
 function App() {

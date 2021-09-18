@@ -1,4 +1,5 @@
 # Github Search React v2
+[![Build Status](https://travis-ci.com/vgratsilev/github-search-react-v2.svg?branch=master)](https://travis-ci.com/vgratsilev/github-search-react-v2)
 
 Github API search.\
 UseEffect Flux sandbox.

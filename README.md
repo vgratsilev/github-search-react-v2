@@ -13,8 +13,6 @@ Used:
  * Loader from [Loading.io](https://loading.io/css).
  * react-modal (TODO).
  * Tests maybe will not be added (TODO).
- * Add Travis building (TODO).
- * Add Github Pages (TODO).
 
 ## Available Scripts
 
